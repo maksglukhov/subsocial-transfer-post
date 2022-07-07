@@ -1,7 +1,5 @@
 import { newFlatSubsocialApi } from "@subsocial/api";
 import config from "./config";
-//const ipfs = require("ipfs");
-//var flatApi = require("@subsocial/api");
 import {
   IpfsContent,
   OptionBool,
@@ -71,11 +69,11 @@ export const fetchSpace = async (userAddress) => {
   return spaces;
 };
 
-export const writePost = async (spaceId) => {
+export const writePost = async (spaceId, message) => {
   const cid = await flatApi.subsocial.ipfs.saveContent({
     title: "Test post",
     tags: ["test", "dapp", "react"],
-    body: "Second post while testing subsocial sdk for hackathon.",
+    body: message,
   });
   const substrateApi = await flatApi.subsocial.substrate.api;
   const postTransaction = substrateApi.tx.posts.createPost(

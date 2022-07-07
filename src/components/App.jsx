@@ -7,7 +7,7 @@ import Main from "./Main";
 function App() {
   return (
     <div className='App'>
-      <ConnectWallet></ConnectWallet>
+      <ConnectWallet classname='space'></ConnectWallet>
       <Main></Main>
     </div>
   );

@@ -6,9 +6,8 @@ import {
   writePost,
 } from "../subsocial/subMethods";
 import "../css/connectWallet.css";
-function Navbar() {
-  const styleClassNameLi = "nav-item p-2";
 
+function СonnectWallet() {
   const connectWallet = async () => {
     const { isWeb3Injected, web3Enable, web3AccountsSubscribe } = await import(
       "@polkadot/extension-dapp"
@@ -33,6 +32,7 @@ function Navbar() {
         console.log(spaces);
         //console.log(spaces[1].struct.id);
         //writePost(spaces[0].struct.id);
+        //TODO add spaces in select to choose in which one post
       }
     });
   };
@@ -43,16 +43,11 @@ function Navbar() {
 
   return (
     <div className='connectWallet'>
-      <button
-        className='btn'
-        size='large'
-        type='primary'
-        onClick={() => connectWallet()}
-        style={{ background: "transparent", border: "0px" }}>
+      <button className='btn1' onClick={() => connectWallet()}>
         Connect wallet
       </button>
     </div>
   );
 }
 
-export default Navbar;
+export default СonnectWallet;

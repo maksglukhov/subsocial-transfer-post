@@ -1,7 +1,9 @@
 .App {
   text-align: center;
 }
-
+.space {
+  padding: 50px;
+}
 body {
   background-color: #a599ff;
 }
