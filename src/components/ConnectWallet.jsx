@@ -24,12 +24,12 @@ function СonnectWallet() {
 
     await web3AccountsSubscribe(async (accounts) => {
       if (accounts.length > 0) {
-        const addresses = accounts.map((account) => account.address);
-        console.log(addresses[0]);
-        let profile = await fetchProfile(addresses[0]);
-        console.log(profile.id);
-        let spaces = await fetchSpace(profile.id);
-        console.log(spaces);
+        //const addresses = accounts.map((account) => account.address);
+        //console.log(addresses[0]);
+        //let profile = await fetchProfile(addresses[0]);
+        //console.log(profile.id);
+        //let spaces = await fetchSpace(profile.id);
+        //console.log(spaces);
         //console.log(spaces[1].struct.id);
         //writePost(spaces[0].struct.id);
         //TODO add spaces in select to choose in which one post

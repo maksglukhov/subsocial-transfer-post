@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Select from "react-select";
 import {
   connect,
   fetchProfile,
@@ -6,19 +7,23 @@ import {
   writePost,
 } from "../subsocial/subMethods";
 import "../css/main.css";
+import { getRequest } from "../twitter/getTweet";
+//import { client } from "../twitter/twitter";
+
 //import { Client } from "twitter-api-sdk";
 
 function Main() {
   //const client = new Client(process.env.BEARER_TOKEN);
   const [url, setUrl] = useState("");
+  const [spaces, setSpaces] = useState([]);
+  const [value, setValue] = useState();
+  //console.log(value);
+  //console.log(spaces);
   useEffect(() => {
     connect();
   }, []);
-  const post = async () => {
-    //let twit = parseUrl(url);
 
-    //const tweet = await client.tweets.findTweetsById("1544636989647032321");
-    //console.log(tweet.data.text);
+  const connect = async () => {
     const { isWeb3Injected, web3Enable, web3AccountsSubscribe } = await import(
       "@polkadot/extension-dapp"
     );
@@ -35,36 +40,52 @@ function Main() {
     await web3AccountsSubscribe(async (accounts) => {
       if (accounts.length > 0) {
         const addresses = accounts.map((account) => account.address);
-        console.log(addresses[0]);
+        //console.log(addresses[0]);
         let profile = await fetchProfile(addresses[0]);
-        console.log(profile.id);
+        //console.log(profile.id);
         let spaces = await fetchSpace(profile.id);
-        console.log(spaces);
+        //console.log(spaces);
+        setSpaces(spaces);
         //console.log(spaces[1].struct.id);
-        writePost(spaces[0].struct.id, url);
+        //writePost(spaces[0].struct.id, url);
       }
     });
   };
 
-  function parseUrl(url) {
-    console.log(url);
-  }
+  const post = async () => {
+    writePost(value.struct.id, "setting select space");
+  };
+
+  const findTweet = async () => {
+    //const tweet = await client.tweets.findTweetsById("1544636989647032321");
+    //console.log(tweet.data.text);
+    let tweet = await getRequest();
+    console.log(tweet);
+  };
 
   return (
-    <div className='main'>
-      <div className='input-group mb-3 justify-content-center'>
-        <div className='input-group-prepend text-center'>
-          <h1 className='h3 mb-3 font-weight-normal'>Paste twitter post url</h1>
-          <div className='d-flex p-2'>
-            <input
-              placeholder='url'
-              required
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </div>
-          <button className='btn' onClick={() => post()}>
-            Transfer post
-          </button>
+    <div className='container'>
+      <div className='container main'>
+        <button className='btn' onClick={() => findTweet()}>
+          twitter
+        </button>
+      </div>
+      <div className='container main'>
+        <button className='btn' onClick={() => connect()}>
+          Connect wallet
+        </button>
+
+        <button className='btn' onClick={() => post()}>
+          Post
+        </button>
+        <div style={{ width: "100px", minWidth: "15vw" }}>
+          <Select
+            options={spaces}
+            value={value}
+            onChange={setValue}
+            getOptionLabel={(option) => option.content.name}
+            getOptionValue={(option) => option.struct.id}
+            style={{ width: "max-content" }}></Select>
         </div>
       </div>
     </div>
